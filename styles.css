@@ -69,7 +69,10 @@
   aspect-ratio: 1/1;
   font-size: 24px;
 
-  background: orange;
+  background: conic-gradient(
+    var(--color-dark) var(--progress, 0),
+    var(--color-dark-glare) 0%
+  );
   margin: 2rem auto;
   border-radius: 50%;
   -webkit-border-radius: 50%;
@@ -99,4 +102,9 @@
   span {
     display: none;
   }
+}
+
+[role='progressbar'][aria-valuenow='100']::after {
+  content: 'Hello';
+  background-color: var(--color-success);
 }
