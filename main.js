@@ -10,12 +10,22 @@ function enableProgressBar() {
 enableProgressBar();
 
 const testingBtn = document.querySelector('.testing-ground');
+let interval = null;
+
+function simulateProgress(newProgressValue) {
+  clearInterval(interval);
+  if (newProgressValue === 'fake-upload') {
+    simulateUpload();
+  } else {
+    updateProgress(newProgressValue);
+  }
+}
 
 testingBtn.addEventListener('click', (e) => {
   if (!e.target.closest('button')) return;
 
   progress = e.target.dataset.progress;
-  updateProgress(progress);
+  simulateProgress(progress);
 });
 
 function updateProgress(progress) {
@@ -25,14 +35,16 @@ function updateProgress(progress) {
 
 function simulateUpload() {
   // prevent announcing every update interval
-  progress.setAttribute('aria-busy', 'true');
+  progressBar.setAttribute('aria-busy', 'true');
   let progress = 0;
   updateProgress(progress);
 
-  intervalTimer = setInterval(() => {
+  let intervalTimer = setInterval(() => {
     progress += 5;
     updateProgress(progress);
-    if (progress === 100) progressBar.setAttribute('aria-busy', 'false');
-    clearInterval(intervalTimer);
+    if (progress === 100) {
+      progressBar.setAttribute('aria-busy', 'false');
+      clearInterval(intervalTimer);
+    }
   }, 500);
 }

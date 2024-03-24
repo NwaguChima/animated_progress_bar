@@ -1,3 +1,9 @@
+@property --progress {
+  syntax: '<length-percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
 @layer general-styling-and-whatnot {
   :root {
     --font-base: 'Space Mono', monospace;
@@ -83,6 +89,12 @@
   display: grid;
   place-items: center;
 
+  transition: --progress 500ms linear;
+  -webkit-transition: --progress 500ms linear;
+  -moz-transition: --progress 500ms linear;
+  -ms-transition: --progress 500ms linear;
+  -o-transition: --progress 500ms linear;
+
   &::after {
     content: attr(aria-valuenow) '%';
     background-color: white;
@@ -105,6 +117,14 @@
 }
 
 [role='progressbar'][aria-valuenow='100']::after {
-  content: 'Hello';
-  background-color: var(--color-success);
+  animation: progressComplete 0s forwards;
+  -webkit-animation: progressComplete 0s forwards;
+  animation-delay: 1000ms;
+}
+
+@keyframes progressComplete {
+  to {
+    content: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODUiIGhlaWdodD0iODUiIHZpZXdCb3g9IjUgMzAgNzUgMTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0zNS40MjM3IDUzLjczMjdMNjcuOTc4NyAyMS4xNzc3TDcyLjk4OTUgMjYuMTg0MkwzNS40MTk1IDYzLjc1TDEyLjg4NiA0MS4yMTIyTDE3Ljg5MjUgMzYuMjAxNUwzNS40MjM3IDUzLjczMjdaIiBmaWxsPSIjMWYxYTM4Ii8+Cjwvc3ZnPgo=');
+    background-color: var(--color-success);
+  }
 }
