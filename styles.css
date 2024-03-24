@@ -56,3 +56,47 @@
     }
   }
 }
+
+/* if javascript is disabled */
+.progressbar:not([role='progressbar']) {
+  color: red;
+}
+
+[role='progressbar'] {
+  --size: 132px;
+  --bar-width: 20px;
+  width: var(--size);
+  aspect-ratio: 1/1;
+  font-size: 24px;
+
+  background: orange;
+  margin: 2rem auto;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+
+  display: grid;
+  place-items: center;
+
+  &::after {
+    content: attr(aria-valuenow) '%';
+    background-color: white;
+    border-radius: inherit;
+    -webkit-border-radius: inherit;
+    -moz-border-radius: inherit;
+    -ms-border-radius: inherit;
+    -o-border-radius: inherit;
+
+    width: calc(100% - var(--bar-width));
+    aspect-ratio: 1/1;
+
+    display: grid;
+    place-items: center;
+  }
+
+  span {
+    display: none;
+  }
+}
